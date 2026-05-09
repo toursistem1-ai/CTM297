@@ -1,0 +1,48 @@
+PANDUAN SETUP NEXAOPS (GOOLE SHEETS DB)
+=====================================
+
+1. SETUP GOOGLE SHEETS:
+   - Buat Google Spreadsheet baru.
+   - Buat tab/sheet bernama "Users" dengan header (baris 1):
+     id | name | email | role | department | password | created_at
+   - Buat tab/sheet bernama "Messages" dengan header (baris 1):
+     id | channel | sender_name | sender_role | message | data_type | data_payload | created_at
+   - Buat tab/sheet bernama "Form APLUSAN" dengan header (baris 1):
+     TIME STAMP | NOZZLE | Nomor BUKA MANUAL | GAMBAR BUKA MANUAL | Nomor Tutup MANUAL | GAMBAR Tutup MANUAL | MANUAL HASIL | Nomor BUKA DIGITAL | GAMBAR BUKA DIGITAL | Nomor TUTUP DIGITAL | GAMBAR TUTUP DIGITAL | HASIL DIGITAL | SELISIH MANUAL DAN DIGITAL | PENGGUNA
+   - Buat tab/sheet bernama "Data Penjualan" dengan header (baris 1):
+     Produk | Timestamp | Tanggal | Shift | Stock Awal | No Mobil Tangki | No PNBP (DO) | Vol Sebelum | Vol PNBP | Vol Aktual | Selisih Volume | Pengeluaran Dispenser | Stock Teoritis | Stock Akhir Aktual | Selisih | Total | Paraf SPV | Catatan | User
+   - Buat tab/sheet bernama "Data QQ BBM" dengan header (baris 1):
+     Produk | Timestamp | Tanggal | Jam | Density Observasi | Suhu Observasi ⁰c | Density std. 15⁰(TableASTM 53 g/cm₃) | Tinggi air tangki pendam (pasta air ) cm | Jam Penerimaan | No.Mobil Tangki | No.PNBP | Density std. 15⁰(TableASTM 53 g/cm₃) | Density Obsevasi penerimaan | Suhu Observasi penerimaan | Density std. 15⁰ penerimaan | Selisih density g/cm₃ | Jam setelah pasca penerimaan | Density Obsevasi Pasca penerimaan | Suhu Observasi pasca penerimaan | Density std. 15⁰ pasca penerimaan | User
+   - Buat tab/sheet bernama "Housekeeping Driveway" dengan header (baris 1):
+     Timestamp | SPBU | Bulan | Shift | Tanggal | Driveway Visual | Driveway Sapu | Driveway Cuci | Pulau Cuci | Kanopi Visual | Kanopi Lampu | Signage Visual | Signage Lampu | Oil Check | Oil Kuras | Supervisor | Catatan | User
+
+2. SETUP GOOGLE APPS SCRIPT:
+   - Di Spreadsheet, klik 'Extensions' > 'Apps Script'.
+   - Hapus semua kode yang ada, ganti dengan isi dari file 'GOOGLE_APPS_SCRIPT.js' di proyek ini.
+   - Klik 'Deploy' > 'New Deployment'.
+   - Pilih type: 'Web App'.
+   - Description: 'NexaOps API'.
+   - Execute as: 'Me'.
+   - Who has access: 'Anyone'.
+   - Klik 'Deploy', berikan izin yang diminta.
+   - COPY "Web App URL" yang diberikan.
+
+3. SETUP ENVIRONMENT (AI Studio):
+   - Klik ikon 'Settings' (roda gigi) di pojok kiri bawah atau kanan atas (tergantung versi UI).
+   - Cari menu 'Secrets'.
+   - Klik 'Add Secret'.
+   - Masukkan Name: VITE_GS_URL
+   - Masukkan Value: [Paste URL Web App yang Anda copy di Langkah 2]
+   - Klik 'Save'.
+   - Refresh atau Restart Dev Server jika perlu.
+
+5. CUSTOM TEMPLATE LAPORAN:
+   - Jika Anda ingin mengubah tampilan PDF (font, logo, tata letak), edit file:
+     '/src/lib/reportUtils.ts'
+   - Fitur download PDF tersedia di Form APLUSAN, Data Penjualan, dan Data QQ BBM.
+   - Riwayat data (History) juga menampilkan tombol untuk download data lama.
+   - Semua data User dan Pesan akan tersimpan secara permanen di Spreadsheet Anda.
+
+CATATAN:
+Karena menggunakan Google Apps Script, ada delay sekitar 1-2 detik untuk setiap transaksi database.
+Ini normal untuk solusi database berbasis Google Sheets.
